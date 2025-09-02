@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login - Glassmorphism Design</title>
     <style>
         * {
@@ -16,15 +15,18 @@
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for better mobile support */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Animated background elements */
+        /* Animated background elements - optimized for mobile */
         body::before {
             content: '';
             position: fixed;
@@ -38,6 +40,7 @@
                 radial-gradient(circle at 40% 80%, rgba(120, 200, 255, 0.3) 0%, transparent 50%);
             animation: float 20s ease-in-out infinite;
             z-index: -1;
+            will-change: transform; /* Optimize animations for mobile */
         }
 
         @keyframes float {
@@ -57,7 +60,7 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
             width: 100%;
             max-width: 480px;
-            padding: 50px;
+            padding: 40px 30px;
             position: relative;
             overflow: hidden;
         }
@@ -74,12 +77,12 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .logo h1 {
             color: rgba(255, 255, 255, 0.95);
-            font-size: 32px;
+            font-size: clamp(24px, 5vw, 32px); /* Responsive font size */
             font-weight: 700;
             margin-bottom: 8px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -87,12 +90,12 @@
 
         .logo p {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 15px;
+            font-size: clamp(13px, 3vw, 15px); /* Responsive font size */
             font-weight: 400;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -114,6 +117,8 @@
             backdrop-filter: blur(10px);
             color: rgba(255, 255, 255, 0.95);
             transition: all 0.3s ease;
+            -webkit-appearance: none; /* Remove iOS input styling */
+            appearance: none;
         }
 
         .form-group input::placeholder {
@@ -127,13 +132,13 @@
             box-shadow: 
                 0 0 20px rgba(255, 255, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            transform: translateY(-1px); /* Reduced transform for mobile */
         }
 
         /* CAPTCHA Container */
         .captcha-container {
-            margin: 30px 0;
-            padding: 30px;
+            margin: 25px 0;
+            padding: 25px 20px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -143,7 +148,7 @@
 
         .captcha-tabs {
             display: flex;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-radius: 12px;
             overflow: hidden;
             background: rgba(255, 255, 255, 0.05);
@@ -153,7 +158,7 @@
 
         .captcha-tab {
             flex: 1;
-            padding: 14px 20px;
+            padding: 12px 16px;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -162,6 +167,7 @@
             color: rgba(255, 255, 255, 0.7);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
 
         .captcha-tab.active {
@@ -178,7 +184,7 @@
         }
 
         .captcha-content {
-            min-height: 160px;
+            min-height: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -188,30 +194,32 @@
         .captcha-question {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             font-weight: 400;
+            line-height: 1.4;
         }
 
-        /* Text CAPTCHA */
+        /* Text CAPTCHA - Mobile optimized */
         .text-captcha {
             font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 36px;
+            font-size: clamp(24px, 7vw, 36px); /* Responsive font size */
             font-weight: 700;
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 25px;
-            padding: 25px;
+            margin-bottom: 20px;
+            padding: 20px 15px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 8px;
+            letter-spacing: clamp(4px, 2vw, 8px); /* Responsive letter spacing */
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             box-shadow: 
                 0 8px 25px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            word-break: break-all; /* Prevent overflow on small screens */
         }
 
         .text-captcha::before {
@@ -230,19 +238,19 @@
             100% { left: 100%; }
         }
 
-        /* Slider CAPTCHA */
+        /* Slider CAPTCHA - Mobile optimized */
         .slider-captcha {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .slider-track {
             position: relative;
             width: 100%;
-            height: 56px;
+            height: 50px; /* Slightly smaller for mobile */
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
-            border-radius: 28px;
+            border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             overflow: hidden;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -256,7 +264,7 @@
             backdrop-filter: blur(10px);
             width: 0%;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 28px;
+            border-radius: 25px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
         }
 
@@ -265,8 +273,8 @@
             top: 50%;
             left: 4px;
             transform: translateY(-50%);
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -278,20 +286,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             color: #666;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slider-handle:hover {
-            box-shadow: 
-                0 12px 35px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            transform: translateY(-50%) scale(1.05);
+            touch-action: none; /* Prevent scrolling while dragging */
         }
 
         .slider-handle:active {
             cursor: grabbing;
+            transform: translateY(-50%) scale(1.05);
         }
 
         .slider-text {
@@ -299,31 +302,35 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 14px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.6);
             pointer-events: none;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .captcha-input {
-            width: 240px;
-            padding: 16px 20px;
+            width: 100%;
+            max-width: 240px;
+            padding: 14px 16px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             color: rgba(255, 255, 255, 0.95);
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .captcha-input::placeholder {
             color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .captcha-input:focus {
@@ -333,33 +340,36 @@
             box-shadow: 
                 0 0 20px rgba(255, 255, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .captcha-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 20px;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .captcha-refresh {
-            padding: 12px 20px;
+            padding: 10px 16px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             color: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
         .captcha-refresh:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -371,15 +381,18 @@
             backdrop-filter: blur(15px);
             color: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 18px;
+            padding: 16px;
             border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 30px;
+            margin-top: 25px;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .login-btn::before {
@@ -401,7 +414,7 @@
             background: linear-gradient(135deg, 
                 rgba(255, 75, 112, 1) 0%, 
                 rgba(255, 107, 107, 1) 100%);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 
                 0 15px 35px rgba(255, 75, 112, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -416,14 +429,15 @@
         }
 
         .error-message, .success-message {
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-size: 14px;
             font-weight: 500;
             display: none;
             backdrop-filter: blur(15px);
             border: 1px solid;
+            line-height: 1.4;
         }
 
         .error-message {
@@ -438,32 +452,124 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        @media (max-width: 480px) {
+        /* Samsung specific optimizations */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
             .login-container {
-                padding: 40px 30px;
-                margin: 15px;
+                padding: 30px 20px;
                 border-radius: 16px;
+                max-width: 100%;
             }
             
             .text-captcha {
-                font-size: 28px;
-                letter-spacing: 6px;
-                padding: 20px;
+                font-size: 20px;
+                letter-spacing: 3px;
+                padding: 15px 10px;
+                word-break: break-all;
             }
             
             .captcha-input {
                 width: 100%;
-                font-size: 16px;
-                letter-spacing: 2px;
+                font-size: 14px;
+                letter-spacing: 1px;
+                max-width: none;
             }
 
             .captcha-actions {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
 
             .captcha-refresh {
                 width: 100%;
+                padding: 12px;
+            }
+
+            .slider-track {
+                height: 45px;
+            }
+
+            .slider-handle {
+                width: 37px;
+                height: 37px;
+                font-size: 16px;
+            }
+
+            .slider-text {
+                font-size: 12px;
+            }
+
+            .captcha-container {
+                padding: 20px 15px;
+                margin: 20px 0;
+            }
+
+            .captcha-content {
+                min-height: 120px;
+            }
+        }
+
+        /* Extra small screens (Galaxy Fold, etc.) */
+        @media screen and (max-width: 320px) {
+            .login-container {
+                padding: 25px 15px;
+            }
+            
+            .text-captcha {
+                font-size: 18px;
+                letter-spacing: 2px;
+                padding: 12px 8px;
+            }
+            
+            .slider-track {
+                height: 40px;
+            }
+
+            .slider-handle {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .logo h1 {
+                font-size: 22px;
+            }
+
+            .logo p {
+                font-size: 12px;
+            }
+        }
+
+        /* Landscape orientation on mobile */
+        @media screen and (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px 20px;
+            }
+            
+            .login-container {
+                padding: 20px;
+                margin: 5px 0;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+            }
+            
+            .captcha-container {
+                margin: 15px 0;
+                padding: 15px;
+            }
+            
+            .captcha-content {
+                min-height: 100px;
+            }
+            
+            .text-captcha {
+                margin-bottom: 15px;
+                padding: 12px;
             }
         }
     </style>
@@ -521,6 +627,19 @@
                 this.setupTabs();
                 this.generateCaptcha('text');
                 this.setupForm();
+                this.preventZoom();
+            }
+
+            preventZoom() {
+                // Prevent zoom on double tap for better mobile experience
+                let lastTouchEnd = 0;
+                document.addEventListener('touchend', function (event) {
+                    const now = (new Date()).getTime();
+                    if (now - lastTouchEnd <= 300) {
+                        event.preventDefault();
+                    }
+                    lastTouchEnd = now;
+                }, false);
             }
 
             setupTabs() {
@@ -563,12 +682,13 @@
                     <div class="captcha-question">Introduceți codul afișat mai jos:</div>
                     <div class="text-captcha">${captchaText}</div>
                     <div class="captcha-actions">
-                        <input type="text" class="captcha-input" id="textAnswer" placeholder="Introduceți codul" maxlength="6">
+                        <input type="text" class="captcha-input" id="textAnswer" placeholder="Introduceți codul" maxlength="6" autocomplete="off">
                         <button type="button" class="captcha-refresh" onclick="captcha.generateCaptcha('text')">🔄 Nou</button>
                     </div>
                 `;
                 
-                document.getElementById('textAnswer').addEventListener('input', (e) => {
+                const textAnswer = document.getElementById('textAnswer');
+                textAnswer.addEventListener('input', (e) => {
                     this.isVerified = e.target.value.toUpperCase() === this.currentAnswer;
                     this.updateLoginButton();
                     
@@ -585,6 +705,13 @@
                         e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                         e.target.style.background = 'rgba(255, 255, 255, 0.1)';
                         e.target.style.boxShadow = 'none';
+                    }
+                });
+
+                // Prevent zoom on focus for iOS/Samsung
+                textAnswer.addEventListener('focus', (e) => {
+                    if (/iPad|iPhone|iPod|Android/i.test(navigator.userAgent)) {
+                        e.target.style.fontSize = '16px';
                     }
                 });
             }
@@ -618,20 +745,27 @@
                 let startX = 0;
                 let currentX = 0;
                 
+                const getEventX = (e) => {
+                    return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                };
+                
                 const handleStart = (e) => {
                     isDragging = true;
-                    const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                    const clientX = getEventX(e);
                     const handleRect = handle.getBoundingClientRect();
                     startX = clientX - handleRect.left;
                     handle.style.transition = 'none';
                     fill.style.transition = 'none';
+                    
+                    // Prevent default to avoid scrolling on mobile
+                    e.preventDefault();
                 };
                 
                 const handleMove = (e) => {
                     if (!isDragging) return;
                     
                     e.preventDefault();
-                    const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                    const clientX = getEventX(e);
                     const trackRect = track.getBoundingClientRect();
                     currentX = clientX - trackRect.left - startX;
                     const maxX = track.clientWidth - handle.clientWidth;
@@ -655,7 +789,7 @@
                     }
                 };
                 
-                const handleEnd = () => {
+                const handleEnd = (e) => {
                     isDragging = false;
                     if (!this.sliderCompleted) {
                         handle.style.transition = 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -670,10 +804,15 @@
                 document.addEventListener('mousemove', handleMove);
                 document.addEventListener('mouseup', handleEnd);
                 
-                // Touch events
-                handle.addEventListener('touchstart', handleStart, { passive: true });
+                // Touch events for mobile - improved for Samsung devices
+                handle.addEventListener('touchstart', handleStart, { passive: false });
                 document.addEventListener('touchmove', handleMove, { passive: false });
-                document.addEventListener('touchend', handleEnd);
+                document.addEventListener('touchend', handleEnd, { passive: false });
+                
+                // Prevent context menu on long press
+                handle.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                });
             }
 
             updateLoginButton() {
@@ -716,6 +855,29 @@
                         }, 3000);
                     }, 1500);
                 });
+
+                // Improve input handling on mobile
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    // Prevent zoom on focus for Samsung Internet browser
+                    input.addEventListener('focus', () => {
+                        if (window.innerWidth <= 768) {
+                            document.querySelector('meta[name="viewport"]').setAttribute(
+                                'content', 
+                                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+                            );
+                        }
+                    });
+
+                    input.addEventListener('blur', () => {
+                        if (window.innerWidth <= 768) {
+                            document.querySelector('meta[name="viewport"]').setAttribute(
+                                'content', 
+                                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+                            );
+                        }
+                    });
+                });
             }
 
             showError(message) {
@@ -723,6 +885,11 @@
                 errorDiv.textContent = message;
                 errorDiv.style.display = 'block';
                 document.getElementById('successMessage').style.display = 'none';
+                
+                // Scroll to error message on mobile
+                if (window.innerWidth <= 768) {
+                    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
             }
 
             showSuccess(message) {
@@ -730,6 +897,11 @@
                 successDiv.textContent = message;
                 successDiv.style.display = 'block';
                 document.getElementById('errorMessage').style.display = 'none';
+                
+                // Scroll to success message on mobile
+                if (window.innerWidth <= 768) {
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
             }
 
             hideMessages() {
@@ -738,8 +910,40 @@
             }
         }
 
-        // Initialize CAPTCHA system
-        const captcha = new CustomCaptcha();
+        // Initialize CAPTCHA system when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const captcha = new CustomCaptcha();
+            window.captcha = captcha; // Make globally accessible for refresh buttons
+        });
+
+        // Handle orientation changes on mobile
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                // Recalculate dimensions after orientation change
+                const viewport = document.querySelector('meta[name="viewport"]');
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                
+                // Trigger resize event for any calculations that depend on viewport
+                window.dispatchEvent(new Event('resize'));
+            }, 100);
+        });
+
+        // Handle viewport changes for Samsung Internet and other browsers
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // Adjust layout if needed after resize
+                const container = document.querySelector('.login-container');
+                if (container && window.innerHeight < 600) {
+                    container.style.marginTop = '10px';
+                    container.style.marginBottom = '10px';
+                } else if (container) {
+                    container.style.marginTop = '';
+                    container.style.marginBottom = '';
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>
